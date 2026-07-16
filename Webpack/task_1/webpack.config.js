@@ -10,4 +10,5 @@ export default {
     path: path.resolve(__dirname, "public"),
     filename: "bundle.js",
   },
+  mode: "production",
 };
