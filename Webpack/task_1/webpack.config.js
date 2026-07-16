@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 export default {
   entry: "./js/dashboard_main.js",
   output: {
-    filename: "bundle.js",
+    'filename': "bundle.js",
     path: path.resolve(__dirname, "public"),
   },
 };
