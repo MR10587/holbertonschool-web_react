@@ -1,0 +1,13 @@
+.buttonandtext {
+  display: flex;
+}
+
+.buttonandtext #count {
+  font-weight: bold;
+}
+
+#logo {
+  background-image: url("../assets/holberton-logo.jpg");
+  height: 200px;
+  width: 200px;
+}
