@@ -9,8 +9,6 @@ $(document).ready(function () {
   $("body").append("<button>Click here to get started</button>");
   $("body").append('<p id="count"></p>');
   $("body").append("<p>Copyright - Holberton School</p>");
-
-  updateCounter();
 });
 
 function updateCounter() {
