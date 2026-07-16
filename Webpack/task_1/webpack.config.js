@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default {
+const config = {
   entry: "./js/dashboard_main.js",
   output: {
     path: path.resolve(__dirname, "public"),
@@ -12,3 +12,5 @@ export default {
   },
   mode: "production",
 };
+
+export default config;
