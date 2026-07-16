@@ -10,7 +10,4 @@ export default {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public"),
   },
-  environment: {
-    module: true,
-  },
 };
