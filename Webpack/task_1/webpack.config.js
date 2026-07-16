@@ -11,4 +11,7 @@ export default {
     filename: "bundle.js",
   },
   mode: "production",
+  module: {
+    rules: [{ test: /\.js$/, use: "babel-loader" }],
+  },
 };
