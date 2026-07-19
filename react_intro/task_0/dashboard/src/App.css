@@ -1,0 +1,17 @@
+.App-header {
+    display: flex;
+    gap: 10px;
+}
+
+.App-body {
+  border-block: 2px solid red;
+  min-height: 75dvh;
+}
+
+.App-footer {
+  display: flex;
+  min-height: 15dvh;
+  align-items: flex-end;
+  justify-content: center;
+}
+
