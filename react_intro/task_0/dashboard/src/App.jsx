@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import holbertonLogo from './assets/holberton-logo.jpg'
 import './App.css'
 
 function App() {
   return (
     <>
       <div className="App-header">
-        <img src="assets/holberton-logo.jpg" alt="holberton logo"></img>
+        <img src={holbertonLogo} alt="holberton logo"width="200px"></img>
         <h1 style={{ color: "#e1003c" }}>School dashboard</h1>
       </div>
       <div className="App-body">
