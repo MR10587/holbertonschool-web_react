@@ -1,17 +1,17 @@
 .App-header {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .App-body {
   border-block: 2px solid red;
-  min-height: 75dvh;
+  min-height: 71dvh;
 }
 
 .App-footer {
   display: flex;
-  min-height: 15dvh;
+  min-height: 5dvh;
   align-items: flex-end;
   justify-content: center;
 }
-
