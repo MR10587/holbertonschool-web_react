@@ -28,24 +28,36 @@
 
 .App-body {
   flex: 1;
-  padding: 2rem;
+  padding: 1rem 1rem 0;
   display: flex;
   align-items: flex-start;
-  border-top: 2px solid #e1003c;
   border-bottom: 2px solid #e1003c;
 }
 
 .App-body p {
   margin: 0;
-  font-size: 1.125rem;
+  font-size: 0.8rem;
 }
 
 .App-footer {
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   text-align: center;
 }
 
 .App-footer p {
   margin: 0;
   font-style: italic;
+  font-size: 0.75rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
