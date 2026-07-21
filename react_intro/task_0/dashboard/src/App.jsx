@@ -1,11 +1,14 @@
 import holbertonLogo from "./assets/holberton-logo.jpg";
+import { getCurrentYear, getFooterCopy } from "./utils";
+import Notifications from "./Notifications";
 import "./App.css";
 
 function App() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <div className="App">
+      <div className="root-notifications">
+        <Notifications />
+      </div>
       <div className="App-header">
         <img src={holbertonLogo} alt="holberton logo" />
         <h1>School dashboard</h1>
@@ -15,8 +18,7 @@ function App() {
       </div>
       <div className="App-footer">
         <p>
-          <span className="sr-only">copyright - Holberton School</span>
-          Copyright {currentYear} - holberton School
+          Copyright {getCurrentYear()} - {getFooterCopy()}
         </p>
       </div>
     </div>
