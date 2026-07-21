@@ -1,0 +1,51 @@
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: #333;
+}
+
+.App-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 1rem 2rem;
+  border-bottom: 4px solid #e1003c;
+}
+
+.App-header img {
+  width: 200px;
+  height: auto;
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #e1003c;
+}
+
+.App-body {
+  flex: 1;
+  padding: 1rem 1rem 0;
+  display: flex;
+  align-items: flex-start;
+  border-bottom: 2px solid #e1003c;
+}
+
+.App-body p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.App-footer {
+  padding: 0.5rem 2rem;
+  text-align: center;
+}
+
+.App-footer p {
+  margin: 0;
+  font-style: italic;
+  font-size: 0.75rem;
+}
