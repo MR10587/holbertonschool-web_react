@@ -5,7 +5,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <div className="root-notifications">
         <Notifications />
       </div>
@@ -21,7 +21,7 @@ function App() {
           Copyright {getCurrentYear()} - {getFooterCopy()}
         </p>
       </div>
-    </div>
+    </>
   );
 }
 
