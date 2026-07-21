@@ -1,7 +1,7 @@
-import holbertonLogo from "./assets/holberton-logo.jpg";
-import { getCurrentYear, getFooterCopy } from "./utils";
-import Notifications from "./Notifications";
-import "./App.css";
+import './App.css';
+import holbertonLogo from './assets/holberton-logo.jpg';
+import Notifications from './Notifications';
+import { getCurrentYear, getFooterCopy } from './utils';
 
 function App() {
   return (
@@ -9,16 +9,18 @@ function App() {
       <div className="root-notifications">
         <Notifications />
       </div>
-      <div className="App-header">
+
+      <header className="App-header">
         <img src={holbertonLogo} alt="holberton logo" />
-        <h1>School dashboard</h1>
-      </div>
+        <h1>School Dashboard</h1>
+      </header>
+
       <div className="App-body">
         <p>Login to access the full dashboard</p>
       </div>
       <div className="App-footer">
         <p>
-          Copyright {getCurrentYear()} - {getFooterCopy()}
+          Copyright {getCurrentYear()} {getFooterCopy(false)}
         </p>
       </div>
     </div>
