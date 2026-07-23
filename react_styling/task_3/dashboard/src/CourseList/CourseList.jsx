@@ -1,22 +1,19 @@
-import CourseListRow from './CourseListRow';
-import WithLogging from '../HOC/WithLogging';
+import CourseListRow from "./CourseListRow";
+import WithLogging from "../HOC/WithLogging";
 
 function CourseList({ courses = [] }) {
   return (
-    <div className="mx-auto my-10 w-[78%] overflow-x-auto flex items-center justify-center">
-      <table id="CourseList" className="w-full border-collapse text-[8px] text-black">
+    <div className="my-10 flex justify-center">
+      <table
+        id="CourseList"
+        className="w-[calc(100%-40px)] border-collapse text-[8px] text-black"
+      >
         <thead>
           {courses.length === 0 ? (
-            <CourseListRow
-              isHeader
-              textFirstCell="No course available yet"
-            />
+            <CourseListRow isHeader textFirstCell="No course available yet" />
           ) : (
             <>
-              <CourseListRow
-                isHeader
-                textFirstCell="Available courses"
-              />
+              <CourseListRow isHeader textFirstCell="Available courses" />
 
               <CourseListRow
                 isHeader

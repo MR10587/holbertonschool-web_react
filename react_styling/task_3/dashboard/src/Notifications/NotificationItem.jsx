@@ -1,11 +1,11 @@
-import { PureComponent } from 'react';
+import { PureComponent } from "react";
 
 class NotificationItem extends PureComponent {
   static defaultProps = {
     id: 0,
-    type: 'default',
+    type: "default",
     html: null,
-    value: '',
+    value: "",
     markAsRead: () => {},
   };
 
@@ -15,21 +15,20 @@ class NotificationItem extends PureComponent {
   };
 
   render() {
-    const {
-      type,
-      html,
-      value,
-    } = this.props;
+    const { type, html, value } = this.props;
 
-    const colorClass = type === 'urgent'
-     ? 'text-urgent-notification-item'
-     : 'text-default-notification-item';
+    const colorClass =
+      type === "urgent"
+        ? "text-urgent-notification-item"
+        : "text-default-notification-item";
+
+    const itemClass = `${colorClass} my-1 text-[12px]`;
 
     if (html) {
       return (
         <li
           data-notification-type={type}
-          className={colorClass}
+          className={itemClass}
           onClick={this.handleClick}
           dangerouslySetInnerHTML={html}
         />
@@ -39,7 +38,7 @@ class NotificationItem extends PureComponent {
     return (
       <li
         data-notification-type={type}
-        className={colorClass}
+        className={itemClass}
         onClick={this.handleClick}
       >
         {value}

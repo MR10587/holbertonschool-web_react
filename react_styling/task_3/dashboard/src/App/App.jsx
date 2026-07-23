@@ -1,12 +1,12 @@
-import { Component, Fragment } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import Login from '../Login/Login';
-import Notifications from '../Notifications/Notifications';
-import CourseList from '../CourseList/CourseList';
-import { getLatestNotification } from '../utils/utils';
-import BodySection from '../BodySection/BodySection';
-import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
+import { Component, Fragment } from "react";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import Login from "../Login/Login";
+import Notifications from "../Notifications/Notifications";
+import CourseList from "../CourseList/CourseList";
+import { getLatestNotification } from "../utils/utils";
+import BodySection from "../BodySection/BodySection";
+import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 
 class App extends Component {
   static defaultProps = {
@@ -15,39 +15,35 @@ class App extends Component {
   };
 
   handleKeyDown = (event) => {
-    if (
-      'key' in event
-      && event.ctrlKey
-      && event.key === 'h'
-    ) {
-      window.alert('Logging you out');
+    if ("key" in event && event.ctrlKey && event.key === "h") {
+      window.alert("Logging you out");
       this.props.logOut();
     }
   };
 
   componentDidMount() {
-    document.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener("keydown", this.handleKeyDown);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener("keydown", this.handleKeyDown);
   }
 
   render() {
     const notificationsList = [
       {
         id: 1,
-        type: 'default',
-        value: 'New course available',
+        type: "default",
+        value: "New course available",
       },
       {
         id: 2,
-        type: 'urgent',
-        value: 'New resume available',
+        type: "urgent",
+        value: "New resume available",
       },
       {
         id: 3,
-        type: 'urgent',
+        type: "urgent",
         html: {
           __html: getLatestNotification(),
         },
@@ -55,21 +51,18 @@ class App extends Component {
     ];
 
     const coursesList = [
-      { id: 1, name: 'ES6', credit: 60 },
-      { id: 2, name: 'Webpack', credit: 20 },
-      { id: 3, name: 'React', credit: 40 },
+      { id: 1, name: "ES6", credit: 60 },
+      { id: 2, name: "Webpack", credit: 20 },
+      { id: 3, name: "React", credit: 40 },
     ];
 
     const { isLoggedIn } = this.props;
 
     return (
       <Fragment>
-        <div className="App flex min-h-screen w-full flex-col px-5">
+        <div className="App flex min-h-screen w-full flex-col">
           <div className="root-notifications">
-            <Notifications
-              notifications={notificationsList}
-              displayDrawer
-            />
+            <Notifications notifications={notificationsList} displayDrawer />
           </div>
 
           <Header />

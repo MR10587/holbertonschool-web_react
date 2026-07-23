@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import closeButton from '../assets/close-button.png';
-import NotificationItem from './NotificationItem';
+import { Component } from "react";
+import closeButton from "../assets/close-button.png";
+import NotificationItem from "./NotificationItem";
 
 class Notifications extends Component {
   static defaultProps = {
@@ -9,7 +9,7 @@ class Notifications extends Component {
   };
 
   handleClick = () => {
-    console.log('Close button has been clicked');
+    console.log("Close button has been clicked");
   };
 
   markAsRead = (id) => {
@@ -25,44 +25,23 @@ class Notifications extends Component {
 
     return (
       <>
-        <div className="notification-title absolute right-4 top-3 text-[8px]">
+        <div className="notification-title mr-5 mt-2.5 text-right text-[14px] font-bold">
           Your Notifications
         </div>
 
         {displayDrawer && (
-          <div
-            className="
-              notification-items
-              absolute
-              right-4
-              top-7
-              w-1/7
-              border
-              border-dashed
-              border-main
-              p-0.5
-              text-[4px]
-            "
-          >
+          <div className="notification-items mx-5 border border-dashed border-[var(--color-main)] p-2.5 text-[12px]">
             {notifications.length > 0 && (
               <button
                 type="button"
                 aria-label="Close"
                 onClick={this.handleClick}
-                className="
-                  absolute
-                  right-0.5
-                  top-0.5
-                  cursor-pointer
-                  border-none
-                  bg-transparent
-                  
-                "
+                className="absolute right-2.5 top-2.5 cursor-pointer border-none bg-transparent"
               >
                 <img
                   src={closeButton}
                   alt="Close"
-                  className="h-1 w-1"
+                  className="block h-[10px] w-[10px]"
                 />
               </button>
             )}
@@ -73,7 +52,7 @@ class Notifications extends Component {
               <>
                 <p>Here is the list of notifications</p>
 
-                <ul className="list-disc pl-2">
+                <ul className="list-disc pl-7">
                   {notifications.map((notification) => (
                     <NotificationItem
                       key={notification.id}
