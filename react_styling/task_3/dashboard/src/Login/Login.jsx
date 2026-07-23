@@ -1,38 +1,36 @@
-import WithLogging from '../HOC/WithLogging';
+import WithLogging from "../HOC/WithLogging";
 
 function Login() {
   return (
-    <div
-      className="
-        App-body flex-1 px-[10px] py-[10px] text-[5px] border-t-2 border-main pt-[10px]
-      "
-    >
-      <p className="mb-4 text-[10px]">
-        Login to access the full dashboard
-      </p>
+    <div className="App-body flex-1 border-t-2 border-t-[var(--color-main)] px-0 py-2 text-[10px]">
+      <p className="mb-4 text-[10px]">Login to access the full dashboard</p>
 
-      <div className="flex items-center gap-1 flex-wrap">
-        <label htmlFor="email">Email:</label>
+      <div className="flex flex-wrap items-center gap-x-1 gap-y-2 text-[10px]">
+        <label htmlFor="email" className="whitespace-nowrap">
+          Email:
+        </label>
 
         <input
           type="email"
           id="email"
           name="email"
-          className="h-4 w-26 border border-gray-400 px-2 text-sm rounded"
+          className="h-5 w-[96px] rounded border border-gray-400 px-1 text-[10px] leading-none"
         />
 
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password" className="whitespace-nowrap">
+          Password:
+        </label>
 
         <input
           type="password"
           id="password"
           name="password"
-          className="h-4 w-26 border border-gray-400 px-2 text-sm rounded"
+          className="h-5 w-[96px] rounded border border-gray-400 px-1 text-[10px] leading-none"
         />
 
         <button
           type="button"
-          className="rounded border border-gray-400 px-3 py-1 text-[10px] h-4 w-4 flex items-center justify-center"
+          className="flex h-5 items-center justify-center rounded border border-gray-400 px-2 text-[10px] leading-none"
         >
           OK
         </button>

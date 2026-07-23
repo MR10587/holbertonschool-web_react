@@ -1,14 +1,9 @@
-import BodySection from './BodySection';
+import BodySection from "./BodySection";
 
-function BodySectionWithMarginBottom({
-  title = '',
-  children = null,
-}) {
+function BodySectionWithMarginBottom({ title = "", children = null }) {
   return (
-    <div className="bodySectionWithMargin mb-10">
-      <BodySection title={title}>
-        {children}
-      </BodySection>
+    <div className="bodySectionWithMargin mb-12">
+      <BodySection title={title}>{children}</BodySection>
     </div>
   );
 }
