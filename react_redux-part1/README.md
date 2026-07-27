@@ -1,1 +1,1 @@
-Redux states
+## React Redux (PART 1)
