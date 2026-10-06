@@ -1,20 +1,20 @@
 {
-  "name": "webpack",
+  "name": "task_0",
   "version": "1.0.0",
-  "description": "Webpack project",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
+  "dependencies": {
+    "jquery": "^4.0.0"
+  },
   "devDependencies": {
     "webpack": "^5.108.4",
     "webpack-cli": "^7.2.1"
-  },
-  "dependencies": {
-    "jquery": "^4.0.0"
   }
 }

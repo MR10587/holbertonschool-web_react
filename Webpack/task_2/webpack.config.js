@@ -1,37 +1,57 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+module.exports = {
+  mode: 'production',
 
-const config = {
-  entry: "./js/dashboard_main.js",
+  entry: './js/dashboard_main.js',
+
   output: {
-    path: path.resolve(__dirname, "public"),
-    filename: "bundle.js",
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
   },
-  mode: "production",
+
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
+        test: /\.(png|jpe?g|gif)$/i,
+        type: 'javascript/auto',
         use: [
-          "file-loader",
           {
-            loader: "image-webpack-loader",
+            loader: 'file-loader',
             options: {
-              bypassOnDebug: false,
-              disable: false,
+              name: '[name].[ext]',
+              esModule: false,
+            },
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65,
+              },
+              optipng: {
+                enabled: true,
+              },
+              pngquant: {
+                quality: [0.65, 0.9],
+                speed: 4,
+              },
+              gifsicle: {
+                interlaced: false,
+              },
             },
           },
         ],
       },
     ],
   },
-};
 
-export default config;
+  performance: {
+    hints: false,
+  },
+};
