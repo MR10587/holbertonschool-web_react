@@ -1,125 +1,61 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import authReducer, { login, logout } from '../../features/auth/authSlice';
 import Header from './Header';
-import authReducer from '../../features/auth/authSlice';
 
-const createMockStore = (initialState) => {
-  return configureStore({
+function renderHeader(isLoggedIn = false) {
+  const store = configureStore({
     reducer: {
       auth: authReducer
     },
-    preloadedState: initialState
+    preloadedState: {
+      auth: { isLoggedIn, user: { email: '', password: '' } },
+    }
   });
-};
+  render(<Provider store={store}><Header /></Provider>);
+  return store;
+}
 
-const renderWithRedux = (component, initialState) => {
-  const store = createMockStore(initialState);
-  return render(
-    <Provider store={store}>
-      {component}
-    </Provider>
-  );
-};
+describe('Header component', () => {
+  test("Vérification de la présence du texte h1 et du alt de l'image de App-header", () => {
+    renderHeader();
+    const headerh1 = screen.getByRole('heading', { level: 1, name: /School dashboard/i });
+    expect(headerh1).toBeInTheDocument();
+    const headerImgAlt = screen.getByAltText(/holberton logo/i);
+    expect(headerImgAlt).toBeInTheDocument();
+  });
 
-export const convertHexToRGBA = (hexCode) => {
-  let hex = hexCode.replace('#', '');
+  test("Vérification de l'absence de la section #logoutSection par défaut", () => {
+    renderHeader();
+    const section = document.querySelector('#logoutSection');
+    expect(section).not.toBeInTheDocument();
+  });
 
-  if (hex.length === 3) {
-    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
-    console.log({hex})
-  }
+  test("Vérification de la présence du link 'logout' quand le state isLoggedIn est true.", () => {
+    renderHeader(true);
+    const logoutLink = screen.getByRole('link', { name: /logout/i });
+    expect(logoutLink).toBeInTheDocument();
+  });
 
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
+  test("Vérification du message de bienvenue avec l'email quand le state isLoggedIn est true.", async () => {
+    const store = renderHeader();
+    store.dispatch(login({ email: 'fallen.albaz@gmail.com', password: 'azertyuiop' }));
 
-  return { r, g, b };
-};
+    const welcomeMessage = await screen.findByText(/fallen\.albaz@gmail\.com/i);
+    expect(welcomeMessage).toBeInTheDocument();
+  });
 
-test('should contain a <p/> element with specific text, <h1/>, and an <img/>', () => {
-  const initialState = {
-    auth: {
-      user: {
-        email: '',
-        password: ''
-      },
-      isLoggedIn: false
-    }
-  };
+  test("Vérification que le logout remette bien le state isLoggedIn à false", async () => {
+    const store = renderHeader(true);
+    store.dispatch(logout());
 
-  renderWithRedux(<Header />, initialState);
+    const state = store.getState().auth;
+    expect(state.isLoggedIn).toBe(false);
 
-  const headingElement = screen.getByRole('heading', {name: /school Dashboard/i});
-  const imgElement = screen.getByAltText('holberton logo')
-
-  expect(headingElement).toBeInTheDocument();
-  expect(headingElement).toHaveStyle({color: convertHexToRGBA('#e1003c') })
-  expect(imgElement).toBeInTheDocument();
-});
-
-test('logoutSection is not rendered with default context value', () => {
-  const initialState = {
-    auth: {
-      user: {
-        email: '',
-        password: ''
-      },
-      isLoggedIn: false
-    }
-  };
-
-  renderWithRedux(<Header />, initialState);
-
-  const logoutSection = screen.queryByText(/logout/i);
-
-  expect(logoutSection).not.toBeInTheDocument();
-});
-
-test('logoutSection is rendered when user is logged in', () => {
-  const initialState = {
-    auth: {
-      user: {
-        email: 'test@test.com',
-        password: 'password123'
-      },
-      isLoggedIn: true
-    }
-  };
-
-  renderWithRedux(<Header />, initialState);
-
-  const logoutSection = screen.getByText(/logout/i);
-  expect(logoutSection).toBeInTheDocument();
-  expect(screen.getByText(/test@test.com/i)).toBeInTheDocument();
-});
-
-test('clicking logout link calls the logOut function', () => {
-  const initialState = {
-    auth: {
-      user: {
-        email: 'test@test.com',
-        password: 'password123'
-      },
-      isLoggedIn: true
-    }
-  };
-
-  const store = createMockStore(initialState);
-  const dispatchSpy = jest.spyOn(store, 'dispatch');
-
-  render(
-    <Provider store={store}>
-      <Header />
-    </Provider>
-  );
-
-  const logoutLink = screen.getByText(/logout/i);
-  fireEvent.click(logoutLink);
-
-  expect(dispatchSpy).toHaveBeenCalledWith(
-    expect.objectContaining({
-      type: 'auth/logout'
+    const section = document.querySelector('#logoutSection');
+    await waitFor(() => {
+      expect(section).not.toBeInTheDocument();
     })
-  );
+  });
 });

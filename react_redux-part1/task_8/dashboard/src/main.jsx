@@ -1,14 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import store from './app/store';
-import App from './App';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { Provider } from 'react-redux'
+import store from './app/store.js'
+import App from './App.jsx'
+import '../index.css'
+import "@fontsource/roboto/400.css"
+import "@fontsource/roboto/500.css"
+import "@fontsource/roboto/700.css"
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
-);
+  </StrictMode>,
+)

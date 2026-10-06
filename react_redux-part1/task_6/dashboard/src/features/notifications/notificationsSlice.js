@@ -1,67 +1,61 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { getLatestNotification } from '../../utils/utils';
+
+const API_BASE_URL = 'http://localhost:5173';
 
 const initialState = {
   notifications: [],
-  displayDrawer: true,
+  displayDrawer: true
 };
 
-const API_BASE_URL = 'http://localhost:5173';
 const ENDPOINTS = {
-  notifications: `${API_BASE_URL}/notifications.json`,
+  notifications: `${API_BASE_URL}/notifications.json`
 };
 
-export const fetchNotifications = createAsyncThunk(
+const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
-  async () => {
-    const response = await axios.get(ENDPOINTS.notifications);
-    const latestNotif = {
-      id: 3,
-      type: 'urgent',
-      html: { __html: getLatestNotification() },
-    };
+  async (_, thunkAPI) => {
+    try {
+      const response = await (await fetch(ENDPOINTS.notifications)).json();
 
-    const currentNotifications = response.data.notifications;
-    const indexToReplace = currentNotifications.findIndex(
-      (notification) => notification.id === 3
-    );
-
-    const updatedNotifications = [...currentNotifications];
-    if (indexToReplace !== -1) {
-      updatedNotifications[indexToReplace] = latestNotif;
-    } else {
-      updatedNotifications.push(latestNotif);
+      const data = Array.isArray(response) ? response : [];
+      const transformedResponse = data.map((element) => {
+        if (element.id === 3) {
+          return { ...element, html: getLatestNotification() };
+        } else {
+          return element;
+        }
+      })
+      return transformedResponse;
     }
-
-    return updatedNotifications;
+    catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
-);
+)
 
 const notificationsSlice = createSlice({
   name: 'notifications',
   initialState,
   reducers: {
-    markNotificationAsRead: (state, action) => {
-      const notificationId = action.payload;
-      state.notifications = state.notifications.filter(
-        (notification) => notification.id !== notificationId
-      );
-      console.log(`Notification ${notificationId} has been marked as read`);
+    markNotificationAsRead: function(state, action) {
+      state.notifications = state.notifications.filter(item => item.id !== action.payload);
+      console.log(`Notification ${action.payload} has been marked as read`);
     },
-    showDrawer: (state) => {
+    showDrawer: function(state) {
       state.displayDrawer = true;
     },
-    hideDrawer: (state) => {
+    hideDrawer: function(state) {
       state.displayDrawer = false;
-    },
+    }
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchNotifications.fulfilled, (state, action) => {
-      state.notifications = action.payload;
+    builder.addCase(fetchNotifications.fulfilled, function (state, action) {
+      state.notifications = action.payload
     });
-  },
-});
+  }
+})
 
-export const { markNotificationAsRead, showDrawer, hideDrawer } = notificationsSlice.actions;
 export default notificationsSlice.reducer;
+export const { markNotificationAsRead, showDrawer, hideDrawer } = notificationsSlice.actions;
+export { fetchNotifications };

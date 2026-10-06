@@ -1,56 +1,31 @@
-import CourseListRow from './CourseListRow/CourseListRow';
+import CourseListRow from "./CourseListRow/CourseListRow";
+import WithLogging from "../../components/HOC/WithLogging";
 import { useSelector } from 'react-redux';
-import { StyleSheet, css } from 'aphrodite';
-import WithLogging from '../../components/HOC/WithLogging';
-
-const styles = StyleSheet.create({
-  courses: {
-    margin: '130px auto',
-    width: '90%',
-    height: '33vh'
-  },
-  table: {
-    width: '100%',
-    borderCollapse: 'collapse',
-    border: '2px solid rgb(161, 161, 161)',
-    ':nth-child(1n) th': {
-      border: '2px solid rgb(161, 161, 161)'
-    },
-    ':nth-child(1n) tr': {
-      border: '2px solid rgb(161, 161, 161)'
-    },
-    ':nth-child(1n) td': {
-      border: '2px solid rgb(161, 161, 161)'
-    }
-  }
-});
 
 function CourseList() {
-  const { courses } = useSelector((state) => state.courses);
+  const courses = useSelector((state) => state.courses.courses);
 
-  return (
-    <div className={css(styles.courses)}>
-      {courses.length > 0 ? (
-        <table id="CourseList"  className={css(styles.table)}>
+  return(
+    <div className="w-4/5 mx-auto py-20" id="CourseListContainer">
+      <table className="w-full border-collapse" id="CourseList">
+        {courses.length === 0 ? <tbody><CourseListRow isHeader={ true } textFirstCell='No course available yet' /></tbody>:
+        <>
           <thead>
-            <CourseListRow textFirstCell="Available courses" isHeader={true} />
-            <CourseListRow textFirstCell="Course name" textSecondCell="Credit" isHeader={true} />
+            <CourseListRow isHeader={ true } textFirstCell='Available courses' />
+            <CourseListRow isHeader={ true } textFirstCell='Course name'  textSecondCell='Credit' />
           </thead>
           <tbody>
             {courses.map((course) => (
               <CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={course.credit} />
             ))}
           </tbody>
-        </table>
-      ) : (
-        <table id="CourseList" className={css(styles.table)}>
-          <thead>
-            <CourseListRow isHeader={true} textFirstCell="No course available yet" />
-          </thead>
-        </table>
-      )}
+        </>
+        }
+      </table>
     </div>
-  );
+  )
 }
 
-export default WithLogging(CourseList);
+const CourseListWithLogging = WithLogging(CourseList)
+
+export default CourseListWithLogging;

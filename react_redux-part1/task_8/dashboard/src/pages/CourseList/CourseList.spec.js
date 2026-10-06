@@ -1,67 +1,63 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import authReducer, { logout } from '../../features/auth/authSlice';
+import coursesReducer, { fetchCourses } from '../../features/courses/coursesSlice';
 import CourseList from './CourseList';
-import coursesReducer from '../../features/courses/coursesSlice';
 
-const createMockStore = (initialState) => {
-  return configureStore({
+function renderCourseList(isLoggedIn = true) {
+  const store = configureStore({
     reducer: {
+      auth: authReducer,
       courses: coursesReducer
     },
-    preloadedState: initialState
+    preloadedState: {
+      auth: { isLoggedIn, user: { email: 'fallen.albaz@gmail.com', password: 'azertyuiop' } },
+      courses: { courses: [] }
+    }
   });
-};
+  render(<Provider store={store}><CourseList /></Provider>);
+  return store;
+}
 
-const renderWithRedux = (component, initialState) => {
-  const store = createMockStore(initialState);
-  return render(
-    <Provider store={store}>
-      {component}
-    </Provider>
-  );
-};
+// Déclaration de coursesList
+const mockCoursesList = [
+  { "id": 1, "name": "ES6", "credit": "60"},
+  { "id": 2, "name": "Webpack", "credit": "20"},
+  { "id": 3, "name": "React", "credit": "40"}
+];
 
-test('it should render the CourseList component without crashing', () => {
-  const initialState = {
-    courses: {
-      courses: [
-        { id: 1, name: 'ES6', credit: 60 },
-        { id: 2, name: 'Webpack', credit: 20 },
-        { id: 3, name: 'React', credit: 40 }
-      ]
-    }
-  };
-  renderWithRedux(<CourseList />, initialState);
-})
+describe('CourseList component', () => {
+  beforeEach (() => {
+    global.fetch = jest.fn();
+  });
 
-test('it should render the CourseList component with 5 rows', () => {
-  const initialState = {
-    courses: {
-      courses: [
-        { id: 1, name: 'ES6', credit: 60 },
-        { id: 2, name: 'Webpack', credit: 20 },
-        { id: 3, name: 'React', credit: 40 }
-      ]
-    }
-  };
-  renderWithRedux(<CourseList />, initialState);
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
 
-  const rowElements = screen.getAllByRole('row');
+  test("Vérification que le fetch fonctionne bien et affiche bien les courses.", async () => {
+    // Simulation du fetch des données de courses
+    const fetchSpy = jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue(mockCoursesList)
+    });
 
-  expect(rowElements).toHaveLength(5)
-})
+    const store = renderCourseList();
+    await store.dispatch(fetchCourses());
 
-test('it should render the CourseList component with 1 rows', () => {
-  const initialState = {
-    courses: {
-      courses: []
-    }
-  };
+    const tableElement = screen.getByRole('table');
+    expect(tableElement).toBeInTheDocument();
 
-  renderWithRedux(<CourseList />, initialState);
+    // Vérification d'une des cases du tableau de courses
+    const courses = await screen.findByText(/Webpack/i);
+    expect(courses).toBeInTheDocument();
+  });
 
-  const rowElements = screen.getAllByRole('row');
+  test("Vérification que le tableau de courses est bien reset quand logout est appelé", () => {
+    const store = renderCourseList();
+    store.dispatch(logout());
 
-  expect(rowElements).toHaveLength(1)
-})
+    const state = store.getState().courses;
+    expect(state.courses).toEqual([]);
+  });
+});
