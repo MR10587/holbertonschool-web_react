@@ -3,26 +3,20 @@ import WithLogging from '../HOC/WithLogging';
 
 function Login() {
   return (
-    <div className="App-body">
+    <div className='App-body'>
       <p>Login to access the full dashboard</p>
 
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-      />
+      <label htmlFor="email">Email :</label>
+      <input type="email" name="email" id="email" />
 
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-      />
+      <label htmlFor="password">Password :</label>
+      <input type="password" name="password" id="password" />
 
-      <button type="button">OK</button>
+      <button>OK</button>
     </div>
-  );
+  )
 }
 
-export default WithLogging(Login);
+const LoginWithLogging = WithLogging(Login);
+
+export default LoginWithLogging;

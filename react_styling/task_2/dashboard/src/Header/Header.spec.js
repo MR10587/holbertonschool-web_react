@@ -1,22 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import Header from './Header';
 
-describe('Header component tests', () => { 
-  
-  test('renders Header without crashing', () => {
+describe('Header component', () => {
+  test('Vérification texte h1 App-header', () => {
     render(<Header />);
+    const headerh1 = screen.getByRole('heading', { level: 1, name: /School dashboard/i });
+    expect(headerh1).toBeInTheDocument();
   });
 
-  test('renders the logo', () => {
+  test('Vérification alt image App-header', () => {
     render(<Header />);
-    const logo = screen.getByAltText(/holberton logo/i);
-    expect(logo).toBeInTheDocument();
-  });
-
-  test('renders h1 element with correct text', () => {
-    render(<Header />);
-    expect(
-      screen.getByRole('heading', { name: /school dashboard/i })
-    ).toBeInTheDocument();
+    const headerImgAlt = screen.getByAltText(/holberton logo/i);
+    expect(headerImgAlt).toBeInTheDocument();
   });
 });

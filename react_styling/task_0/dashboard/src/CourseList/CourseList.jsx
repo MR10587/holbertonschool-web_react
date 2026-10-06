@@ -1,47 +1,29 @@
-import './CourseList.css';
-import CourseListRow from './CourseListRow';
-import WithLogging from '../HOC/WithLogging';
+import CourseListRow from "./CourseListRow";
+import WithLogging from "../HOC/WithLogging";
+import './CourseList.css'
 
 function CourseList({ courses = [] }) {
-  if (courses.length === 0) {
-    return (
+  return(
+    <div id="CourseListContainer">
       <table id="CourseList">
-        <thead>
-          <CourseListRow
-            isHeader
-            textFirstCell="No course available yet"
-          />
-        </thead>
+        {courses.length === 0 ? <tbody><CourseListRow isHeader={ true } textFirstCell='No course available yet' /></tbody>:
+        <>
+          <thead>
+            <CourseListRow isHeader={ true } textFirstCell='Available courses' />
+            <CourseListRow isHeader={ true } textFirstCell='Course name'  textSecondCell='Credit' />
+          </thead>
+          <tbody>
+            {courses.map((course) => (
+              <CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={course.credit} />
+            ))}
+          </tbody>
+        </>
+        }
       </table>
-    );
-  }
-
-  return (
-    <table id="CourseList">
-      <thead>
-        <CourseListRow
-          isHeader
-          textFirstCell="Available courses"
-        />
-
-        <CourseListRow
-          isHeader
-          textFirstCell="Course name"
-          textSecondCell="Credit"
-        />
-      </thead>
-
-      <tbody>
-        {courses.map((course) => (
-          <CourseListRow
-            key={course.id}
-            textFirstCell={course.name}
-            textSecondCell={course.credit}
-          />
-        ))}
-      </tbody>
-    </table>
-  );
+    </div>
+  )
 }
 
-export default WithLogging(CourseList);
+const CourseListWithLogging = WithLogging(CourseList)
+
+export default CourseListWithLogging;

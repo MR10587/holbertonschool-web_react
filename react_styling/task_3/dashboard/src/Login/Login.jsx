@@ -1,42 +1,21 @@
-import WithLogging from "../HOC/WithLogging";
+import WithLogging from '../HOC/WithLogging';
 
 function Login() {
   return (
-    <div className="App-body flex-1 border-t-2 border-t-[var(--color-main)] px-0 py-2 text-[10px]">
-      <p className="mb-4 text-[10px]">Login to access the full dashboard</p>
+    <div className='App-body flex-1 text-justify border-t border-t-[2.5px] border-t-[var(--main-color)]'>
+      <p className='ml-4 mt-4 mb-4'>Login to access the full dashboard</p>
 
-      <div className="flex flex-wrap items-center gap-x-1 gap-y-2 text-[10px]">
-        <label htmlFor="email" className="whitespace-nowrap">
-          Email:
-        </label>
+      <label className='ml-4' htmlFor="email">Email :</label>
+      <input className='ml-4 border border-gray-400 px-1 rounded' type="email" name="email" id="email" />
 
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="h-5 w-[96px] rounded border border-gray-400 px-1 text-[10px] leading-none"
-        />
+      <label className='ml-4' htmlFor="password">Password :</label>
+      <input className='ml-4 border border-gray-400 px-1 rounded' type="password" name="password" id="password" />
 
-        <label htmlFor="password" className="whitespace-nowrap">
-          Password:
-        </label>
-
-        <input
-          type="password"
-          id="password"
-          name="password"
-          className="h-5 w-[96px] rounded border border-gray-400 px-1 text-[10px] leading-none"
-        />
-
-        <button
-          type="button"
-          className="flex h-5 items-center justify-center rounded border border-gray-400 px-2 text-[10px] leading-none"
-        >
-          OK
-        </button>
-      </div>
+      <button className='ml-4 border border-black px-2 cursor-pointer rounded'>OK</button>
     </div>
-  );
+  )
 }
 
-export default WithLogging(Login);
+const LoginWithLogging = WithLogging(Login);
+
+export default LoginWithLogging;

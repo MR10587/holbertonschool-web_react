@@ -1,30 +1,13 @@
 import { getCurrentYear, getFooterCopy } from '../utils/utils';
 
 function Footer() {
+  const currentYear = getCurrentYear();
+  const footerText = getFooterCopy(true);
   return (
-    <footer
-      className="
-        App-footer
-        mx-3
-        mt-auto
-        border-t-4
-        border-main
-        px-2
-        py-2
-        text-center
-        text-[15px]
-        italic
-        min-[520px]:mx-5
-        min-[520px]:text-[10px]
-        min-[912px]:mx-9
-        min-[912px]:text-[7px]
-      "
-    >
-      <p>
-        Copyright {getCurrentYear()} - {getFooterCopy(false)}
-      </p>
-    </footer>
-  );
+    <div className='App-footer text-center italic text-sm md:text-base border-t border-t-[2.5px] border-t-[var(--main-color)] mt-auto pb-8 pt-4'>
+      <p>Copyright {currentYear} - {footerText}</p>
+    </div>
+  )
 }
 
 export default Footer;

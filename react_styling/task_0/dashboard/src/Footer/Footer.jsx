@@ -2,13 +2,13 @@ import './Footer.css';
 import { getCurrentYear, getFooterCopy } from '../utils/utils';
 
 function Footer() {
+  const currentYear = getCurrentYear();
+  const footerText = getFooterCopy(true);
   return (
-    <footer className="App-footer">
-      <p>
-        Copyright {getCurrentYear()} - {getFooterCopy(false)}
-      </p>
-    </footer>
-  );
+    <div className='App-footer'>
+      <p>Copyright {currentYear} - {footerText}</p>
+    </div>
+  )
 }
 
 export default Footer;

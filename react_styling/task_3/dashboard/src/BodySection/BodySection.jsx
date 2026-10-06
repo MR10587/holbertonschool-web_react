@@ -1,11 +1,14 @@
-function BodySection({ title = "", children = null }) {
-  return (
-    <section className="bodySection px-8 py-2">
-      <h2 className="mb-0 mt-5 text-[17px] font-bold">{title}</h2>
+import { Component } from "react";
 
-      <div className="text-[10px] leading-tight">{children}</div>
-    </section>
-  );
+class BodySection extends Component {
+  render() {
+    return(
+      <div className="bodySection mt-auto">
+        <h2 className="font-bold">{ this.props.title }</h2>
+        {this.props.children}
+      </div>
+    )
+  }
 }
 
 export default BodySection;
